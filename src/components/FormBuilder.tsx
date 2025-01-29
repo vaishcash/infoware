@@ -1,11 +1,13 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import type { FormField } from "../types/form";
 import { useTheme } from "../context/ThemeContext";
 import ThemeCustomizer from "./ThemeCustomizer";
 import FormEditor from "./FormEditor";
-import { Eye, Settings } from "lucide-react";
+import { Eye, LogOut, Settings } from "lucide-react";
+import { auth } from "../config/firebase";
+import toast from "react-hot-toast";
 
 export default function FormBuilder() {
   const [fields, setFields] = useState<FormField[]>([]);
@@ -15,6 +17,17 @@ export default function FormBuilder() {
 
   const addField = (field: FormField) => {
     setFields((prev) => [...prev, { ...field, id: crypto.randomUUID() }]);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      toast.success("Logged out successfully");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error logging out");
+    }
   };
 
   const updateField = (id: string, updatedField: Partial<FormField>) => {
@@ -39,7 +52,15 @@ export default function FormBuilder() {
       style={{ fontFamily: theme.typography.fontFamily }}
     >
       <div className="max-w-6xl mx-auto p-6">
-        <div className="text-center mb-8">
+        <button
+          onClick={handleLogout}
+          className="flex items-center px-4 py-2 text-white bg-cyan-600 rounded-lg hover:bg-red-700 transition-colors"
+        >
+          <LogOut className="h-5 w-5" />
+          <span className="ml-2">Logout</span>
+        </button>
+
+        <div className="text-center mb-8 max-md:mt-30">
           <h1
             className="text-4xl font-bold mb-4"
             style={{ color: theme.colors.text }}
@@ -58,8 +79,8 @@ export default function FormBuilder() {
                 color: "white",
               }}
             >
+              <span className="max-md:hidden">Customize Theme</span>
               <Settings size={20} />
-              Customize Theme
             </button>
             <button
               onClick={handlePreview}
@@ -76,8 +97,6 @@ export default function FormBuilder() {
         </div>
 
         {showThemeCustomizer && <ThemeCustomizer />}
-
-      
 
         <div className="bg-white rounded-xl shadow-xl p-8 backdrop-blur-sm bg-opacity-90">
           <FormEditor

@@ -27,7 +27,7 @@ export default function Login() {
         await signInWithEmailAndPassword(auth, email, password);
         toast.success("Welcome back!");
       }
-      navigate("/students");
+      navigate("/form-builder");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";

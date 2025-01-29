@@ -17,7 +17,7 @@ export default function FormPreviewPage() {
     >
       <div className="max-w-4xl mx-auto p-6">
         <Link
-          to="/"
+          to="/form-builder"
           className="inline-flex items-center gap-2 mb-8 text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft size={20} />
