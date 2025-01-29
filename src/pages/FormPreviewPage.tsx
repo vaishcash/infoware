@@ -24,7 +24,14 @@ export default function FormPreviewPage() {
           Back to Editor
         </Link>
 
-        <div className="bg-white rounded-xl shadow-xl p-8">
+        <div
+          className="bg-white rounded-xl shadow-xl p-8"
+          style={{
+            backgroundColor: theme.colors.background,
+            color: "white",
+            fontSize: theme.typography.fontSize.base,
+          }}
+        >
           <h1
             className="text-3xl font-bold mb-6 text-center"
             style={{ color: theme.colors.text }}

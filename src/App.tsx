@@ -1,9 +1,7 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
 import FormBuilder from "./components/FormBuilder";
-import FormPreviewPage from "./components/FormPreviewPage";
-
+import FormPreviewPage from "./pages/FormPreviewPage";
 
 function App() {
   return (

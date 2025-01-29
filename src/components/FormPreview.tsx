@@ -3,7 +3,6 @@ import type { FormField } from "../types/form";
 import { useTheme } from "../context/ThemeContext";
 import SubmissionSuccess from "./SubmissionSuccess";
 
-
 interface FormPreviewProps {
   fields: FormField[];
 }
@@ -67,9 +66,9 @@ export default function FormPreview({ fields }: FormPreviewProps) {
     }
   };
 
-  const handleChange = (field: FormField, value: string | number) => {
-    setFormData((prev) => ({ ...prev, [field.id]: value.toString() }));
-    const error = validateField(field, value as string);
+  const handleChange = (field: FormField, value: string) => {
+    setFormData((prev) => ({ ...prev, [field.id]: value }));
+    const error = validateField(field, value);
     setErrors((prev) => ({
       ...prev,
       [field.id]: error,
@@ -81,9 +80,12 @@ export default function FormPreview({ fields }: FormPreviewProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6"
+    >
       {fields.map((field) => (
-        <div key={field.id} className="space-y-2">
+        <div key={field.id} className="space-y-2"
+        >
+          
           <label
             className="block font-medium"
             style={{
